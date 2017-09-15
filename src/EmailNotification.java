@@ -1,4 +1,4 @@
-import java.time.LocalDateTime;
+
 
 public class EmailNotification extends Notification {
 
@@ -14,7 +14,6 @@ public class EmailNotification extends Notification {
     }
 
     public String getRecipient() {
-
         return recipient;
     }
 
@@ -33,7 +32,34 @@ public class EmailNotification extends Notification {
 
     }
 
+    @Override
+    public void randomText() {
+        super.randomText();
+        System.out.println("I once climbed the walls of my mind only to find a shattered peanut (FROM EMAIL)");
+    }
 
 
 
+    @Override
+    protected Object clone() {
+        return new EmailNotification(getSubject(), getBody(), getRecipient(), getSmtpProvider());
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        EmailNotification that = (EmailNotification) o;
+
+        if (!recipient.equals(that.recipient)) return false;
+        return smtpProvider.equals(that.smtpProvider);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = recipient.hashCode();
+        result = 31 * result + smtpProvider.hashCode();
+        return result;
+    }
 }
